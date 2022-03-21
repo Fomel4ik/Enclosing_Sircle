@@ -1,4 +1,6 @@
+from cmath import pi
 import cv2
+from cv2 import circle
 import numpy as np
 import math
 
@@ -19,7 +21,16 @@ color = (
 
 contours =  find_contours(image, color)
 
-cv2.drawContours(drawing, contours, -1, (255, 255, 255), 3)
+for contour in contours:
+    contour_area = cv2.contourArea(contour)
+    if contour_area >= 100:
+        print('Площадь контура:', contour_area)
+        cv2.drawContours(drawing, [contour], 0, (255, 255, 255), 3)
+        (circle_x, circle_y), circle_radius = cv2.minEnclosingCircle(contour)
+        circle_area = math.pi * circle_radius ** 2
+        print('Полощадь круга:', circle_area)
+        cv2.circle(drawing, (int(circle_x), int(circle_y)), int(circle_radius), (255, 255, 0), 3)
+
 
 cv2.imshow('output', drawing)
 cv2.waitKey(0)
