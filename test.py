@@ -1,6 +1,4 @@
-from cmath import pi
 import cv2
-from cv2 import circle
 import numpy as np
 import math
 
